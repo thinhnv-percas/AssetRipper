@@ -262,6 +262,8 @@ each project targets only `net10.0`, and packing, SourceLink and package metadat
     such functions, 615 bodies. `NewArmV8InstructionSet.InspectPotentialThrowHelper` maps the address with
     `TryMapVirtualAddressToRaw`, as the x86 one already effectively did: a call target outside every segment threw
     out of `ThrowHelperRecovery` and cost 70 more. 685 → 1 bodies failed to convert on that game.
+    `IlGenerator.LoadLocalAddress`: a local typed as a managed reference is loaded with `ldloc`, not `ldloca`, as a
+    by-reference parameter already was - `&(ref reference)` (CS1525) 64 → 0.
 
 ## Updating
 

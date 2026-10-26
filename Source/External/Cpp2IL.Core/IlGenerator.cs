@@ -3551,7 +3551,12 @@ public static class IlGenerator
             return;
         }
 
-        instructions.Add(CilOpCodes.Ldloca, locals[local]);
+        // AssetRipper: and the same holds for a local typed as a managed reference, which is the third storage the
+        // rule above never asked about. `ldloca` on one is a pointer to the pointer, which C# cannot write: ILSpy
+        // renders it `&(ref reference)`, a parse error (CS1525) that hid every body error in five of Kitty Knots'
+        // assemblies, Assembly-CSharp among them - 67 of them, mostly the `ref this` of a UniTask state machine.
+        var cilLocal = locals[local];
+        instructions.Add(cilLocal.VariableType is ByReferenceTypeSignature ? CilOpCodes.Ldloc : CilOpCodes.Ldloca, cilLocal);
     }
 
     /// <summary>
