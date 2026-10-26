@@ -70,6 +70,11 @@ public static class ScriptReferenceMapping
 
 		foreach (string assemblyPath in Directory.EnumerateFiles(officialPackageRoot, $"*{AssemblyExtension}", SearchOption.AllDirectories))
 		{
+			if (!PackageAssetVisibility.IsImported(Path.GetRelativePath(officialPackageRoot, assemblyPath)))
+			{
+				continue;
+			}
+
 			// An assembly with no meta file is not part of the project as far as Unity is concerned, so
 			// nothing can refer to it and there is nothing to remap.
 			if (!TryReadMetaGuid(assemblyPath + MetaExtension, out string? assemblyGuid))

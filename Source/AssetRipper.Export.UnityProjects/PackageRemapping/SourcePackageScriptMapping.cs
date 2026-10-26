@@ -150,6 +150,12 @@ public static class SourcePackageScriptMapping
 
 		foreach (string path in Directory.EnumerateFiles(packagePath, "*.asmdef", SearchOption.AllDirectories))
 		{
+			// A sample's assembly is not compiled until someone imports the sample, so it replaces nothing.
+			if (!PackageAssetVisibility.IsImported(Path.GetRelativePath(packagePath, path)))
+			{
+				continue;
+			}
+
 			try
 			{
 				using JsonDocument document = JsonDocument.Parse(File.ReadAllText(path));
@@ -209,7 +215,8 @@ public static class SourcePackageScriptMapping
 	private static bool IsExcluded(string packagePath, string path)
 	{
 		string relative = MetaGuidScanner.GetRelativePath(packagePath, path);
-		return relative.StartsWith("Tests/", StringComparison.OrdinalIgnoreCase)
+		return !PackageAssetVisibility.IsImported(relative)
+			|| relative.StartsWith("Tests/", StringComparison.OrdinalIgnoreCase)
 			|| relative.Contains("/Tests/", StringComparison.OrdinalIgnoreCase);
 	}
 

@@ -84,7 +84,16 @@ public static partial class ExportPackageMatcher
 			return matches;
 		}
 
-		Dictionary<string, string> officialByPath = ScanGuidsByPath(packagePath, LocalFileSystem.Instance);
+		// Only what a build can carry: an assembly where Unity imports it, any other asset outside an Editor folder too.
+		Dictionary<string, string> officialByPath = new(
+			ScanGuidsByPath(packagePath, LocalFileSystem.Instance).Where(pair =>
+			{
+				string relative = Path.GetRelativePath(packagePath, pair.Key);
+				return pair.Key.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)
+					? PackageAssetVisibility.IsImported(relative)
+					: PackageAssetVisibility.CanBeInBuild(relative);
+			}),
+			StringComparer.OrdinalIgnoreCase);
 
 		MatchAssemblies(matches, rippedByPath, officialByPath);
 		HashSet<string> shaderPaths = MatchShaders(matches, rippedByPath, officialByPath, fileSystem);
