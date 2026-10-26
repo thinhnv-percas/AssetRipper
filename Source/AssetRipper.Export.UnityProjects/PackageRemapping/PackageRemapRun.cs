@@ -148,7 +148,13 @@ public sealed class PackageRemapRun
 		outcome.TypesInAssemblies = packageScripts.Remaps.Count;
 
 		List<ExportMatch> found = ExportPackageMatcher.Match(settings.AssetsPath, packageDirectory, fileSystem);
-		int assembliesFound = found.Count(static match => match.Kind == "assembly");
+
+		// A package assembly whose name a decompiled assembly folder carries replaces that folder (see
+		// CollectRedundant), which is code evidence as much as a paired DLL is. DOTween Pro ships DOTween.dll and
+		// the game's DOTween was decompiled, so it read as 0 types and 0 assemblies while replacing 109 files.
+		int rippedAssembliesReplaced = packageScripts.AssemblyNames.Count(RippedAssemblyFolderExists);
+		int assembliesFound = found.Count(static match => match.Kind == "assembly") + rippedAssembliesReplaced;
+		outcome.AssembliesPaired += rippedAssembliesReplaced;
 
 		if (package.RequiresCodeEvidence && outcome.TypesPaired == 0 && assembliesFound == 0)
 		{
@@ -188,7 +194,7 @@ public sealed class PackageRemapRun
 
 		// This package's own evidence. The run-wide script list used to stand in here, so once one package had
 		// paired a type every package considered after it went into the manifest with nothing paired at all.
-		outcome.AddedToManifest = found.Count > 0 || sourceScripts.Remaps.Count > 0;
+		outcome.AddedToManifest = found.Count > 0 || sourceScripts.Remaps.Count > 0 || rippedAssembliesReplaced > 0;
 
 		if (configuration.DeleteRippedCopies)
 		{
@@ -246,6 +252,16 @@ public sealed class PackageRemapRun
 	/// no counterpart for belongs to the game rather than to the package, and deleting it would break
 	/// the references this run just took care to keep.
 	/// </remarks>
+	/// <summary>
+	/// Whether the export holds a decompiled assembly of this name, which is where CollectRedundant looks too.
+	/// </summary>
+	private bool RippedAssemblyFolderExists(string assemblyName)
+	{
+		return RippedAssemblyContainers.Any(container => fileSystem.Directory.Exists(fileSystem.Path.Join(settings.AssetsPath, container, assemblyName)));
+	}
+
+	private static readonly string[] RippedAssemblyContainers = ["Scripts", "Plugins"];
+
 	private void CollectRedundant(PackageOutcome outcome, List<ExportMatch> found, List<string> assemblyNames, List<string> rippedAssemblyPaths)
 	{
 		foreach (ExportMatch match in found)
@@ -263,7 +279,7 @@ public sealed class PackageRemapRun
 		// folder belongs to that assembly, so it goes rather than being walked file by file.
 		foreach (string assemblyName in assemblyNames)
 		{
-			foreach (string container in (string[])["Scripts", "Plugins"])
+			foreach (string container in RippedAssemblyContainers)
 			{
 				string folder = fileSystem.Path.Join(settings.AssetsPath, container, assemblyName);
 				if (!fileSystem.Directory.Exists(folder))

@@ -63,6 +63,19 @@ public sealed class PackageSource
 	[JsonPropertyName("enabled")]
 	public bool Enabled { get; set; } = true;
 
+	/// <summary>
+	/// Whether the source is a catalog of packages a game may or may not use, rather than the list of what one
+	/// project used, so that a package from it applies only on code evidence. An Editor's BuiltInPackages is one
+	/// whatever this says.
+	/// </summary>
+	/// <remarks>
+	/// A repository collecting Asset Store packages is the same shape as BuiltInPackages: Kitty Knots uses three of
+	/// the eighteen in ThinhNV-DEV/unity-package, and without this nine more went into the manifest on file names
+	/// alone - <c>idle.anim</c>, <c>GLOW.png</c>, a font - deleting the game's own copies.
+	/// </remarks>
+	[JsonPropertyName("catalog")]
+	public bool Catalog { get; set; }
+
 	public bool IsEmpty => Location.Length == 0;
 
 	/// <summary>

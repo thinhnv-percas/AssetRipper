@@ -68,10 +68,13 @@ public sealed class PackageRemapCatalogTests
 	}
 
 	private static PackageRemapRun RunFrom(Fixture fixture, string sourceFolder)
+		=> RunFrom(fixture, new PackageSource { Kind = PackageSourceKind.Cache, Location = sourceFolder });
+
+	private static PackageRemapRun RunFrom(Fixture fixture, PackageSource source)
 	{
 		FullConfiguration settings = new() { ExportRootPath = fixture.ExportRoot };
 		PackageRemapRun run = new(settings, LocalFileSystem.Instance, new PackageRemapConfiguration());
-		PackageSourceResult result = PackageSourceResolver.Resolve(new PackageSource { Kind = PackageSourceKind.Cache, Location = sourceFolder }, GitFetchMode.Never);
+		PackageSourceResult result = PackageSourceResolver.Resolve(source, GitFetchMode.Never);
 		foreach (ResolvedPackage package in result.Packages)
 		{
 			run.Consider(package);
@@ -140,6 +143,51 @@ public sealed class PackageRemapCatalogTests
 			Assert.That(run.Outcomes.Single(o => o.Name == "com.unity.render-pipelines.high-definition").AddedToManifest, Is.True);
 			Assert.That(run.Outcomes.Single(o => o.Name == "com.unity.nothing").AddedToManifest, Is.False);
 			Assert.That(File.ReadAllText(fixture.ManifestPath), Does.Not.Contain("com.unity.nothing"));
+		});
+	}
+
+	[Test]
+	public void AFolderMarkedAsACatalogIsOne()
+	{
+		// A repository collecting Asset Store packages is the shape of BuiltInPackages, whatever it is called: on
+		// Kitty Knots nine packages of ThinhNV-DEV/unity-package reached the manifest on file names alone.
+		using Fixture fixture = Build("unity-package", out string repository);
+
+		PackageRemapRun run = RunFrom(fixture, new PackageSource { Kind = PackageSourceKind.Folder, Location = repository, Catalog = true });
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(run.Outcomes.Single().NoCodeEvidence, Is.True);
+			Assert.That(File.Exists(fixture.RippedShader), Is.True);
+			Assert.That(File.ReadAllText(fixture.Prefab), Does.Contain(RippedShaderGuid));
+		});
+	}
+
+	[Test]
+	public void ADecompiledAssemblyThePackageReplacesIsCodeEvidence()
+	{
+		// DOTween Pro ships DOTween.dll and the game's DOTween was decompiled, so nothing paired as a type or as a DLL
+		// file and the package read as 0 and 0 while replacing the whole folder.
+		using Fixture fixture = Build("unity-package", out string repository);
+		string package = Path.Combine(repository, "com.demigiant.dotween.pro");
+		Write(Path.Combine(package, "package.json"), "{\"name\":\"com.demigiant.dotween.pro\",\"version\":\"1.0.386\"}\n");
+		string assembly = Path.Combine(package, "DOTween", "DOTween.dll");
+		Directory.CreateDirectory(Path.GetDirectoryName(assembly)!);
+		new AsmResolver.DotNet.ModuleDefinition("DOTween.dll").Write(assembly);
+		File.WriteAllText(assembly + ".meta", "fileFormatVersion: 2\nguid: d0000000000000000000000000000004\n");
+		string ripped = Path.Combine(fixture.AssetsPath, "Scripts", "DOTween", "DG", "Tweening", "Tween.cs");
+		Write(ripped, "namespace DG.Tweening { public class Tween { } }\n", "e0000000000000000000000000000005");
+
+		PackageRemapRun run = RunFrom(fixture, new PackageSource { Kind = PackageSourceKind.Folder, Location = repository, Catalog = true });
+
+		Assert.Multiple(() =>
+		{
+			PackageOutcome outcome = run.Outcomes.Single(o => o.Name == "com.demigiant.dotween.pro");
+			Assert.That(outcome.NoCodeEvidence, Is.False);
+			Assert.That(outcome.AssembliesPaired, Is.EqualTo(1));
+			Assert.That(outcome.AddedToManifest, Is.True);
+			Assert.That(File.Exists(ripped), Is.False, "the decompiled copy is replaced by the package");
+			Assert.That(run.Outcomes.Single(o => o.Name == "com.unity.render-pipelines.high-definition").NoCodeEvidence, Is.True);
 		});
 	}
 }

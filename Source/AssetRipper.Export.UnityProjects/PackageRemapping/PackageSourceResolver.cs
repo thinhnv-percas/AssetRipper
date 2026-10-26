@@ -159,7 +159,7 @@ public static class PackageSourceResolver
 
 		// A git package's dependency is written against the clone's root rather than the folder the scan
 		// started in, because a repository holding several packages needs a path per package.
-		bool catalog = IsEditorCatalog(directory);
+		bool catalog = source.Catalog || IsEditorCatalog(directory);
 		foreach (ResolvedPackage package in FindPackages(directory))
 		{
 			result.Packages.Add(package with { Dependency = BuildDependency(source, root, package), RequiresCodeEvidence = catalog });
